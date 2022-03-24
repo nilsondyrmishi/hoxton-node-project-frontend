@@ -2,6 +2,11 @@ import {Button, TextField} from "@mui/material";
 import {useState} from "react";
 // import {useNavigate} from "react-router-dom";
 
+export function logOut(setUser) {
+    localStorage.removeItem('token')
+    setUser(null)
+}
+
 function SignIn(){
     // const navigate = useNavigate();
     const [user, setUsers] = useState(null)
@@ -29,7 +34,7 @@ function SignIn(){
 
     }
 
-    if (user===null)
+     if (user===null)
     return(
         <div className="sign-in">
             <h2>Sign In</h2>
@@ -55,11 +60,21 @@ function SignIn(){
                     variant="outlined"
                     required
                 />
-                <Button type="submit" variant="contained">
+                <Button type="submit" variant="contained" >
                     Sign In
                 </Button>
             </form>
         </div>
     )
+    if (user != null) {
+        return (
+            <>
+                <div >
+                    <h1>Do you want to sign out {user.name}?</h1>
+                    <button onClick={() => logOut(setUsers)}>Sign Out</button>
+                </div>
+            </>
+        )
+    }
 }
 export default SignIn
